@@ -5,7 +5,7 @@ from tqdm import tqdm
 import os
 from PIL import Image
 from torchvision import transforms as T
-
+import numpy as np
 
 from .ray_utils import *
 
@@ -37,9 +37,8 @@ class YourOwnDataset(Dataset):
         return depth
     
     def read_meta(self):
-
-        with open(os.path.join(self.root_dir, f"transforms_{self.split}.json"), 'r') as f:
-            self.meta = json.load(f)
+        # load intrinsics
+        K = np.loadtxt(os.path.join(basedir, "intrinsics.txt"))
 
         w, h = int(self.meta['w']/self.downsample), int(self.meta['h']/self.downsample)
         self.img_wh = [w,h]
@@ -47,7 +46,7 @@ class YourOwnDataset(Dataset):
         self.focal_y = 0.5 * h / np.tan(0.5 * self.meta['camera_angle_y'])  # original focal length
         self.cx, self.cy = self.meta['cx'],self.meta['cy']
 
-
+        # load training and testing poses
         # ray directions for all pixels, same for all images (same H, W, focal)
         self.directions = get_ray_directions(h, w, [self.focal_x,self.focal_y], center=[self.cx, self.cy])  # (h, w, 3)
         self.directions = self.directions / torch.norm(self.directions, dim=-1, keepdim=True)
