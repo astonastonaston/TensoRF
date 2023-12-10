@@ -224,7 +224,7 @@ def reconstruction(args):
 
         # Print the current values of the losses.
         if iteration % 10000 == 0:
-            shutil.copytree("log", "/content/drive/MyDrive/HW3_res/{}_{}".format(os.path.basename(basedir), expname), dirs_exist_ok=True)
+            shutil.copytree("log", "/content/drive/MyDrive/HW3_res/{}_{}".format("log", "bottles"), dirs_exist_ok=True)
 
         if iteration % args.progress_refresh_rate == 0:
             pbar.set_description(
@@ -278,7 +278,7 @@ def reconstruction(args):
 
     tensorf.save(f'{logfolder}/{args.expname}.th')
     shutil.copy(f'{logfolder}/{args.expname}.th', "/content/drive/MyDrive/HW3_res/")
-    shutil.copytree("log", "/content/drive/MyDrive/HW3_res/{}_{}".format(os.path.basename(basedir), expname), dirs_exist_ok=True)
+    shutil.copytree("log", "/content/drive/MyDrive/HW3_res/{}_{}".format("log", "bottles"), dirs_exist_ok=True)
 
 
     if args.render_train:
