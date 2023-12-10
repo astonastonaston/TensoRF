@@ -10,7 +10,7 @@ def config_parser(cmd=None):
                         help='where to store ckpts and logs')
     parser.add_argument("--add_timestamp", type=int, default=0,
                         help='add timestamp to dir')
-    parser.add_argument("--datadir", type=str, default='./data/llff/fern',
+    parser.add_argument("--datadir", type=str, default='./data/nerf_synthetic/bottles',
                         help='input data directory')
     parser.add_argument("--progress_refresh_rate", type=int, default=10,
                         help='how many iterations to show psnrs or iters')
