@@ -10,7 +10,7 @@ from renderer import *
 from utils import *
 from torch.utils.tensorboard import SummaryWriter
 import datetime
-
+import shutil
 from dataLoader import dataset_dict
 import sys
 
@@ -223,6 +223,9 @@ def reconstruction(args):
             param_group['lr'] = param_group['lr'] * lr_factor
 
         # Print the current values of the losses.
+        if iteration % 10000 == 0:
+            shutil.copytree("log", "/content/drive/MyDrive/HW3_res/{}_{}".format(os.path.basename(basedir), expname), dirs_exist_ok=True)
+
         if iteration % args.progress_refresh_rate == 0:
             pbar.set_description(
                 f'Iteration {iteration:05d}:'
@@ -274,6 +277,8 @@ def reconstruction(args):
         
 
     tensorf.save(f'{logfolder}/{args.expname}.th')
+    shutil.copy(f'{logfolder}/{args.expname}.th', "/content/drive/MyDrive/HW3_res/")
+    shutil.copytree("log", "/content/drive/MyDrive/HW3_res/{}_{}".format(os.path.basename(basedir), expname), dirs_exist_ok=True)
 
 
     if args.render_train:

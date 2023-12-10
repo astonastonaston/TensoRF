@@ -4,6 +4,7 @@ from tqdm import tqdm
 import os
 from PIL import Image
 from torchvision import transforms as T
+import shutil
 
 from .ray_utils import *
 
