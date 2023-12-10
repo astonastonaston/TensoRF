@@ -115,7 +115,8 @@ class TanksTempleDataset(Dataset):
     def read_meta(self):
 
         self.intrinsics = np.loadtxt(os.path.join(self.root_dir, "intrinsics.txt"))
-        self.intrinsics[:2] *= (np.array(self.img_wh)/np.array([1920,1080])).reshape(2,1)
+        self.intrinsics[:2] *= (np.array(self.img_wh)/np.array(self.img_wh)).reshape(2,1)
+        # self.intrinsics[:2] *= (np.array(self.img_wh)/np.array([1920,1080])).reshape(2,1)
         pose_files = sorted(os.listdir(os.path.join(self.root_dir, 'pose')))
         img_files  = sorted(os.listdir(os.path.join(self.root_dir, 'rgb')))
 
