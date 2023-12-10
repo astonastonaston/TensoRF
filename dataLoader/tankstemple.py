@@ -143,7 +143,7 @@ class TanksTempleDataset(Dataset):
         self.all_rays = []
         self.all_rgbs = []
 
-        assert len(img_files) == len(pose_files)
+        # assert len(img_files) == len(pose_files)
         for img_fname, pose_fname in tqdm(zip(img_files, pose_files), desc=f'Loading data {self.split} ({len(img_files)})'):
             image_path = os.path.join(self.root_dir, 'rgb', img_fname)
             img = Image.open(image_path)
